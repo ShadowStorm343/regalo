@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>💖 Un correo para ti by Kari💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: "Poppins", sans-serif;
       background-color: #fff;
@@ -15,24 +19,30 @@
       justify-content: center;
       min-height: 100vh;
       margin: 0;
+      padding: 16px;
       text-align: center;
       color: #333;
       transition: background-color 0.5s ease;
     }
+
     h2 {
       margin-bottom: 20px;
+      font-size: clamp(1.1em, 4vw, 1.5em);
     }
+
     .screen {
       display: none;
       animation: fadeIn 0.8s ease;
-      width: 90%;
+      width: 100%;
       max-width: 600px;
     }
+
     .active {
       display: block;
     }
+
     .main-img {
-      width: 280px;
+      width: min(280px, 70vw);
       height: auto;
       margin-bottom: 15px;
       cursor: pointer;
@@ -40,9 +50,12 @@
       border: none;
       box-shadow: none;
     }
+
     .main-img:hover {
       transform: scale(1.05);
     }
+
+    /* ✉️ Card estilo papel rayado */
     .card {
       background: repeating-linear-gradient(
         white,
@@ -50,35 +63,48 @@
         #e3e3e3 29px
       );
       border-radius: 0;
-      padding: 40px 60px;
+      padding: 40px 50px;
       border: 2px solid #e5e5e5;
-      width: 95%;
+      width: 100%;
       max-width: 900px;
       text-align: left;
       margin: 0 auto;
-      box-sizing: border-box;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
       animation: fadeIn 1s ease;
     }
+
     .card h3 {
       font-family: 'Dancing Script', cursive;
-      font-size: 2em;
+      font-size: clamp(1.5em, 5vw, 2em);
       text-align: left;
       margin-bottom: 20px;
       margin-left: 10px;
       color: #444;
     }
+
     .card p {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.3em;
-      line-height: 1.6;
-      text-align: justify;
+      font-size: clamp(1em, 3.5vw, 1.3em);
+      line-height: 1.75;
+      /* ✅ CLAVE: en móvil usar left, en desktop justify */
+      text-align: left;
       color: #444;
       margin: 10px 0;
+      word-break: normal;
+      overflow-wrap: break-word;
+      hyphens: auto;
     }
+
+    /* Solo justify en pantallas más anchas donde no genera huecos */
+    @media (min-width: 520px) {
+      .card p {
+        text-align: justify;
+      }
+    }
+
     .return-btn {
       margin-top: 25px;
-      padding: 10px 20px;
+      padding: 12px 24px;
       font-size: 1em;
       border: none;
       border-radius: 6px;
@@ -86,33 +112,33 @@
       transition: 0.3s;
       background-color: #ff4f81;
       color: white;
+      touch-action: manipulation; /* mejor tap en móvil */
     }
+
     .return-btn:hover {
       background-color: #ff2a66;
     }
+
     @keyframes fadeIn {
-      from {opacity: 0; transform: scale(0.95);}
-      to {opacity: 1; transform: scale(1);}
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
     }
 
-    /* 📱 Ajustes para móviles */
-    @media (max-width: 768px) {
+    /* 📱 Ajustes finos para móviles */
+    @media (max-width: 480px) {
       .card {
-        padding: 20px;
-        width: 100%;
-        max-width: 100%;
+        padding: 24px 20px;
+        /* Las líneas del papel se ajustan al tamaño de fuente móvil */
+        background: repeating-linear-gradient(
+          white,
+          white 26px,
+          #e3e3e3 27px
+        );
       }
+
       .card h3 {
-        font-size: 1.5em;
         text-align: center;
         margin-left: 0;
-      }
-      .card p {
-        font-size: 1.1em;
-        text-align: left;
-      }
-      .main-img {
-        width: 200px;
       }
     }
   </style>
@@ -122,18 +148,22 @@
     <h2>Hola, te llegó un correo</h2>
     <img src="—Pngtree—cute bunny playing with a_5325350.png" alt="Correo" class="main-img" onclick="nextScreen(2)">
   </div>
+
   <div class="screen" id="screen2">
     <h2>Una cartita para ti</h2>
     <img src="lorito.png" alt="Carta" class="main-img" onclick="nextScreen(3)">
   </div>
+
   <div class="screen" id="screen3">
     <h2>¡Ábrelo!</h2>
     <img src="girasol2.webp" alt="Sobre" class="main-img" onclick="nextScreen(4)">
   </div>
+
   <div class="screen" id="screen4">
     <h2>¿Qué dirá?</h2>
     <img src="lirio rojo.jpg" alt="Carta lista" class="main-img" onclick="nextScreen(5)">
   </div>
+
   <div class="screen" id="screen5">
     <div class="card">
       <h3>Mi cariño,</h3>
@@ -141,27 +171,29 @@
         y no sé ni por dónde empezar, pero lo que sí sé es que quiero
         que sepas lo mucho que te quiero, lo importante que eres para mí
         y lo feliz que me haces.</p>
-      </p>
+
       <p>Te escribo esta carta mientras estás descansando en la universidad para recordarte que eres imbatible,
         que puedes lograr todo lo que te propones, y que siempre estaré aquí para apoyarte en cada paso del camino.
         Te escribo esto para animarte en este día, para recordarte cuánto me gustas. Y para recordarte que, aunque a veces las cosas se pongan estresantes,
-        siempre estaré contigo para darte un abrazo, para escucharte, para besarte, para hacerte reír, o simplemente para estar a tu lado.
-    </p>
-        <p>
-        Me gusta la forma en que hablas, cómo me haces reír
+        siempre estaré contigo para darte un abrazo, para escucharte, para besarte, para hacerte reír, o simplemente para estar a tu lado.</p>
+
+      <p>Me gusta la forma en que hablas, cómo me haces reír
         incluso cuando no tengo temas de conversación.
         Y esa tranquilidad, esa felicidad, ese cariño que me transmites, es algo que valoro muchísimo.
-        Eres el primer pensamiento que tengo por las mañanas, y eres el último pensamiento que tengo por las noches. Eres mi alegría, mi paz, mi inspiración.
-        </p>
-      <p>Eres alguien especial para mí. 
+        Eres el primer pensamiento que tengo por las mañanas, y eres el último pensamiento que tengo por las noches. Eres mi alegría, mi paz, mi inspiración.</p>
+
+      <p>Eres alguien especial para mí.
         Eres mi vida, mi reina, mi niña, mi princesa Disney, y eres mía ❤️.</p>
+
       <p>Con mucho afecto,</p>
-      <p>Tu Kari <3 </p>
+      <p>Tu Kari &lt;3</p>
     </div>
+
     <div style="text-align: center;">
       <button class="return-btn" onclick="nextScreen(1)">🔙 Regresar</button>
     </div>
   </div>
+
   <script>
     function nextScreen(num) {
       const current = document.querySelector(".screen.active");
